@@ -1,0 +1,83 @@
+﻿@model IEnumerable<GYM.Models.employee>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script>
+        $("#employee").DataTable();
+    </script>
+}
+<div class="container-fluid">
+
+    <div class="col-md-12">
+
+        <div class="card card-primary">
+
+            <div class="card-header bg-cyan">
+                <h3 class="card-title">Employee(s) List</h3>
+                <div class="card-tools">
+
+                    <a href="@Url.Action("Create", "Employee")" class="btn btn-default" style="color:darkcyan">
+                        <i class="fas fa-plus-square"></i> Add Employee
+                    </a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="employee" class="table table-responsive-lg table-bordered" style="width:100%;">
+                    <thead class="bg-cyan">
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>From Time</th>
+                            <th>To Time</th>
+                            <th>Guardian</th>
+                            <th>Guardian No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.contact_no)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.email_id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.from_time)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.to_time)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.guardian_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.guardian_no)
+                                </td>
+                                <td>
+                                    <div class="form-group row">
+                                        <div class="col-md-4 col-sm-4" style="align-content: center; padding: 2px">
+                                            <a href="~/Employee/Create?EmployeeId=@item.enc_id" title="Edit Package" class="btn btn-light btn-sm col-form-label" style="color:darkcyan;border:1px solid darkcyan">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,296 @@
+﻿@model GYM.Models.employee
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#message-alert").hide();
+            if ('@ViewBag.Message' != '') {
+
+                //$("#wait").hide();
+                $("#message").html('@ViewBag.Message');
+                $("#messageheading").html('Success !');
+                $("#message-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#message-alert").slideUp(1000);
+                });
+            }
+            else if ('@ViewBag.ErrorMessage' != '') {
+
+                //$("#wait").hide();
+                $("#message").html('@ViewBag.Message');
+                $("#messageheading").html('Error !');
+                $("#message-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#message-alert").slideUp(1000);
+                });
+            }
+        });
+    </script>
+}
+<style>
+    label:not(.form-check-label):not(.custom-file-label) {
+        font-weight: 500;
+        font-size: small;
+    }
+</style>
+<div class="container-fluid">
+
+    <div class="col-md-12">
+
+        <div class="card card-primary">
+
+            <div class="card-header bg-cyan">
+                @if (Model.Id > 0)
+                {
+                    <h3 class="card-title">Update Employee</h3>
+                }
+                else
+                {
+                    <h3 class="card-title">New Employee</h3>
+                }
+            </div>
+
+
+            @using (Html.BeginForm(new { @class = "form-horizontal" }))
+            {
+                <div class="card-body">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="name">Name *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.name, new { @class = "form-control form-control-sm", @tabindex = 2 })
+                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="contact_no">Contact No *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.contact_no, new { @class = "form-control form-control-sm", @tabindex = 2 })
+                                    @Html.ValidationMessageFor(model => model.contact_no, "", new { @class = "text-danger" })
+                                    <div id="regrefloader" style="display: none; position: relative; top: -660px; left: 919.547px; z-index: 1000000; background: white; border: 1px solid; width:1350px; display: none; ">@*<img src="~/images/Dual Ring-2.4s-30px.gif" />*@</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="date_of_joining">Date of Joining *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="input-group ftdate" id="trIssueDate" data-target-input="nearest">
+                                        @Html.TextBoxFor(model => model.date_of_joining, new { @class = "form-control form-control-sm datetimepicker-input", @target = "#trIssueDate", @tabindex = 4 })
+                                        <div class="input-group-append" data-target="#trIssueDate" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+
+                                    @Html.ValidationMessageFor(model => model.date_of_joining, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="email_id">Email *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.email_id, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                    @Html.ValidationMessageFor(model => model.email_id, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="reporting_id">Reporting To *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.DropDownListFor(model => model.reporting_id, ViewBag.employees as List<SelectListItem> ,"Select Reporting To", new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                    @Html.ValidationMessageFor(model => model.reporting_id, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="address">Address *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextAreaFor(model => model.address, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                    @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="salary">Salary *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.salary, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                    @Html.ValidationMessageFor(model => model.salary, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="guardian_name">Guardian *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.guardian_name, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                    @Html.ValidationMessageFor(model => model.guardian_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="guardian_no">Guardian No *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.guardian_no, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                    @Html.ValidationMessageFor(model => model.guardian_no, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="is_trainer">Is Trainer *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.CheckBoxFor(model => model.is_trainer, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                    @Html.ValidationMessageFor(model => model.is_trainer, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label">Working Hour *</label>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="from_time">From Time</label>
+                                    @Html.TextBoxFor(model => model.from_time, new { @class = "form-control form-control-sm", @tabindex = 4, @type = "time" })
+                                    @*<input type="time" id="from_time" name="from_time" class="form-control form-control-sm" />*@
+                                    @Html.ValidationMessageFor(model => model.from_time, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="to_time">To Time</label>
+                                    @Html.TextBoxFor(model => model.to_time, new { @class = "form-control form-control-sm", @tabindex = 4, @type = "time" })
+                                    @*<input type="time" id="to_time" name="to_time"  class="form-control form-control-sm" />*@
+                                    @Html.ValidationMessageFor(model => model.to_time, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5 col-md-5">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-md-3 col-form-label">Sick Leaves *</label>
+                                <div class="col-sm-3 col-md-3">
+                                    <label for="from_time">Total</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.sick_leave, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                            @Html.ValidationMessageFor(model => model.sick_leave, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 col-md-3">
+                                    <label for="from_time">Used</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.use_sick_leave, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                            @Html.ValidationMessageFor(model => model.use_sick_leave, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 col-md-3">
+                                    <label for="from_time">Available</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.unuse_sick_leave, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                            @Html.ValidationMessageFor(model => model.unuse_sick_leave, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-7 col-md-7">
+                            <div class="form-group row">
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5 col-md-5">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-md-3 col-form-label">Annual Leaves *</label>
+                                <div class="col-sm-3 col-md-3">
+                                    <label for="from_time">Total</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.annual_leave, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                            @Html.ValidationMessageFor(model => model.annual_leave, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <label for="from_time">Used</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.use_annual_leave, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                            @Html.ValidationMessageFor(model => model.use_annual_leave, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <label for="from_time">Available</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.unuse_annual_leave, new { @class = "form-control form-control-sm", @tabindex = 3 })
+                                            @Html.ValidationMessageFor(model => model.unuse_annual_leave, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-md-3" style="float:right">
+                                @if (Model.Id > 0)
+                                {
+                                    <button type="submit" class="btn btn-primary" style="float:right"><i class="fa fa-save"></i> Update Employee</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary" style="float:right"><i class="fa fa-save"></i> Save Employee</button>
+                                }
+                                <a href='@Url.Action("Index", "Employee")' style="float: right; position: relative; right: 20px;" class="btn btn-outline-info">
+                                    <i class="fa fa-remove-format"></i> Cancel
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        }
+
+                    </div>
+
+    </div>
+
+</div>
+
+
+

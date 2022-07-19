@@ -1,0 +1,75 @@
+﻿@model IEnumerable<GYM.Models.Package>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script>
+        $("#package").DataTable();
+    </script>
+}
+<div class="container-fluid">
+
+    <div class="col-md-12">
+
+        <div class="card card-primary">
+
+            <div class="card-header bg-cyan">
+                <h3 class="card-title">Package(s) List</h3>
+                <div class="card-tools">
+
+                    <a href="@Url.Action("Create", "Package")" class="btn btn-default" style="color:darkcyan">
+                        <i class="fas fa-plus-square"></i> Add Package
+                    </a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="package" class="table table-responsive-lg table-bordered" style="width:100%;">
+                    <thead class="bg-cyan">
+                        <tr>
+
+                            <th>Package Name</th>
+                            <th>Registration Fee</th>
+                            <th>Package Fee</th>
+                            <th>Session Adjustment</th>
+                            <th>Expiry Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.package_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.registration_fee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.package_fee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.session_adj)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.expiry_date)
+                                </td>
+                                <td>
+                                    <div class="form-group row">
+                                        <div class="col-md-4 col-sm-4" style="align-content: center; padding: 2px">
+                                            <a href="~/Package/Create?PackageId=@item.enc_id" title="Edit Package" class="btn btn-light btn-sm col-form-label" style="color:darkcyan;border:1px solid darkcyan">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+            }
+                        </tbody>
+                        </table>
+                    </div>
+        </div>
+    </div>
+</div>

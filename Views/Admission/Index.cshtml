@@ -1,0 +1,101 @@
+﻿@model IEnumerable<GYM.Models.AdmissionForm>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script>
+        $("#AdmissionTable").DataTable();
+    </script>
+}
+<div class="container-fluid">
+
+    <div class="col-md-12">
+
+        <div class="card card-primary">
+
+            <div class="card-header bg-cyan">
+                <h3 class="card-title">Admission(s) List</h3>
+                <div class="card-tools">
+
+                    <a href="@Url.Action("Create", "Admission")" class="btn btn-default" style="color:darkcyan">
+                        <i class="fas fa-plus-square"></i> New Admission
+                    </a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="AdmissionTable" class="table table-responsive-lg table-bordered" style="width:100%;">
+                    <thead class="bg-cyan">
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Contact Number</th>
+                            <th>CNIC</th>
+                            <th>Email</th>
+                            <th>DOB</th>
+                            <th>Age</th>
+                            <th>Height</th>
+                            <th>Weight</th>
+                            <th>BMI</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @(item.first_name +" "+ item.middle_name +" "+ item.last_name)
+                                </td>
+                                
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.gender)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.contact_number)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNIC)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DOB)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Age)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Height)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Weight)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BMI)
+                                </td>
+                                <td>
+                                    <div class="form-group row">
+                                        <div class="col-md-4 col-sm-4" style="align-content: center; align-self: start; padding: 2px">
+                                            <a href="~/Admission/Create?AdmissionId=@item.enc_id" title="Edit Admission" class="btn btn-light btn-sm col-form-label" style="color:darkcyan;border:1px solid darkcyan">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4" style="align-content: center; align-self: end; padding: 2px; position: relative; left: 16px;">
+                                            <a href="~/Assignmentt/Index?AdmissionId=@item.enc_id" title="Assign Package" class="btn btn-light btn-sm col-form-label" style="color:darkcyan;border:1px solid darkcyan">
+                                                <i class="fas fa-bullseye"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

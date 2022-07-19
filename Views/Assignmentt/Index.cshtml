@@ -1,0 +1,303 @@
+﻿@model GYM.Models.package_assignment
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/PackageAssignment.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#message-alert").hide();
+            if ('@ViewBag.Message' != '') {
+
+                //$("#wait").hide();
+                $("#message").html('@ViewBag.Message');
+                $("#messageheading").html('Success !');
+                $("#message-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#message-alert").slideUp(1000);
+                });
+            }
+            else if ('@ViewBag.ErrorMessage' != '') {
+
+                //$("#wait").hide();
+                $("#message").html('@ViewBag.Message');
+                $("#messageheading").html('Error !');
+                $("#message-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#message-alert").slideUp(1000);
+                });
+            }
+        });
+    </script>
+}
+<style>
+    label:not(.form-check-label):not(.custom-file-label) {
+        font-weight: 500;
+        font-size: small;
+    }
+</style>
+<div class="container-fluid">
+
+    <div class="col-md-12">
+
+        <div class="card card-primary">
+
+            <div class="card-header bg-cyan">
+                @if (Model.Id > 0)
+                {
+                    <h3 class="card-title">Update Registration</h3>
+                }
+                else
+                {
+                    <h3 class="card-title">New Registration</h3>
+                }
+            </div>
+
+
+            @using (Html.BeginForm(new { @class = "form-horizontal" }))
+            {
+                <div class="card-body">
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.addmission_id)
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="package_name">Name *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.full_name, new { @id = "first_name", @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.full_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="gender">Gender *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.DropDownListFor(model => model.gender, ViewBag.gender as List<SelectListItem>, new { @class = "form-control form-control-sm", @tabindex = 3, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="DOB">DOB *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="input-group" id="trIssueDate" data-target-input="nearest">
+                                        @Html.TextBoxFor(model => model.DOB, new
+                                   {
+                                       @class = "form-control form-control-sm datetimepicker-input",
+                                       @target = "#trIssueDate",
+                                       @tabindex = 4,
+                                            @readonly = "readonly"
+                                        })
+                                        <div class="input-group-append" data-target="#trIssueDate" data-toggle="datetimepicker">
+                                            <div class="input-group-text" readonly="readonly"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+
+                                    @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="Age">Age *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.Age, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="gender">CNIC *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.CNIC, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="email">Email *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.email, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="purpose_of_joining">Purpose of Joining *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.purpose_of_joining, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.purpose_of_joining, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="Height">Height *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.Height, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="Weight">Weight *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.Weight, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="BMI">BMI *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.BMI, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.BMI, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="contact_number">Contact *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.contact_number, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.contact_number, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="package_id">Package *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.DropDownListFor(model => model.package_id, ViewBag.Packages as List<SelectListItem>, "Select Package", new { @class = "form-control form-control-sm", @tabindex = 2 })
+                                    @Html.ValidationMessageFor(model => model.package_id, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="package_fee">Package Fee *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.package_fee, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.package_fee, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="session_adj">Session Adj *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.session_adj, new { @class = "form-control form-control-sm", @tabindex = 2, @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.session_adj, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="expiry_date">Expiry Date *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="input-group" id="trIssueDate" data-target-input="nearest">
+                                        @Html.TextBoxFor(model => model.expiry_date, new
+                                   {
+                                       @class = "form-control form-control-sm datetimepicker-input",
+                                       @target = "#trIssueDate",
+                                       @tabindex = 4,
+                                            @readonly = "readonly"
+                                        })
+                                        <div class="input-group-append" data-target="#trIssueDate" data-toggle="datetimepicker">
+                                            <div class="input-group-text" readonly="readonly"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+
+                                    @Html.ValidationMessageFor(model => model.expiry_date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="registration_fee_discount">Reg Fee Discount *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.registration_fee_discount, new { @class = "form-control form-control-sm", @tabindex = 2 })
+                                    @Html.ValidationMessageFor(model => model.registration_fee_discount, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="package_fee_discount">Discount *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.package_fee_discount, new { @class = "form-control form-control-sm", @tabindex = 2 })
+                                    @Html.ValidationMessageFor(model => model.package_fee_discount, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-md-4 col-form-label" for="special_discount">Special Discount *</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.TextBoxFor(model => model.special_discount, new { @class = "form-control form-control-sm", @tabindex = 2 })
+                                    @Html.ValidationMessageFor(model => model.special_discount, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+          
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-md-4" style="float:right">
+                                @if (Model.Id > 0)
+                                {
+                                    <button type="submit" class="btn btn-primary" style="float:right"><i class="fa fa-save"></i> Update Registration</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary" style="float:right"><i class="fa fa-save"></i> Approve</button>
+                                }
+                                <a href='@Url.Action("Index", "Admission" )' style="float: right; position: relative; right:10px" class="btn btn-outline-info">
+                                    <i class="fa fa-remove-format"></i> Cancel
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

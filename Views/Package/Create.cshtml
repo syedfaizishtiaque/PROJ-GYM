@@ -1,0 +1,154 @@
+﻿@model GYM.Models.Package
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#message-alert").hide();
+            if ('@ViewBag.Message' != '') {
+
+                //$("#wait").hide();
+                $("#message").html('@ViewBag.Message');
+                $("#messageheading").html('Success !');
+                $("#message-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#message-alert").slideUp(1000);
+                });
+            }
+            else if ('@ViewBag.ErrorMessage' != '') {
+
+                //$("#wait").hide();
+                $("#message").html('@ViewBag.Message');
+                $("#messageheading").html('Error !');
+                $("#message-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#message-alert").slideUp(1000);
+                });
+            }
+        });
+    </script>
+}
+<style>
+    label:not(.form-check-label):not(.custom-file-label) {
+        font-weight: 500;
+        font-size: small;
+    }
+</style>
+<div class="container-fluid">
+
+    <div class="col-md-12">
+
+        <div class="card card-primary">
+
+            <div class="card-header bg-cyan">
+                @if (Model.Id > 0)
+                {
+                    <h3 class="card-title">Update Package</h3>
+                }
+                else
+                {
+                    <h3 class="card-title">New Package</h3>
+                }
+            </div>
+
+            
+                    @using (Html.BeginForm(new { @class = "form-horizontal" }))
+                    {
+                        <div class="card-body">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-md-4 col-form-label" for="package_name">Package Name *</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.package_name, new { @id = "package_name", @class = "form-control form-control-sm", @tabindex = 2 })
+                                            @Html.ValidationMessageFor(model => model.package_name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-md-4 col-form-label" for="package_fee">Package Fee *</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.package_fee, new { @id = "package_fee", @class = "form-control form-control-sm", @tabindex = 2 })
+                                            @Html.ValidationMessageFor(model => model.package_fee, "", new { @class = "text-danger" })
+                                            <div id="regrefloader" style="display: none; position: relative; top: -660px; left: 919.547px; z-index: 1000000; background: white; border: 1px solid; width:1350px; display: none; ">@*<img src="~/images/Dual Ring-2.4s-30px.gif" />*@</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-md-4 col-form-label" for="registration_fee">Registration Fee *</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.registration_fee, new { @id = "registration_fee", @class = "form-control form-control-sm", @tabindex = 2 })
+                                            @Html.ValidationMessageFor(model => model.registration_fee, "", new { @class = "text-danger" })
+                                            <div id="regrefloader" style="display: none; position: relative; top: -660px; left: 919.547px; z-index: 1000000; background: white; border: 1px solid; width:1350px; display: none; ">@*<img src="~/images/Dual Ring-2.4s-30px.gif" />*@</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-md-4 col-form-label" for="RegTitle">Session Adj *</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.TextBoxFor(model => model.session_adj, new { @id = "session_adj", @class = "form-control form-control-sm", @tabindex = 3 })
+                                            @Html.ValidationMessageFor(model => model.session_adj, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-md-4 col-form-label" for="expiry_date">Expiry Date *</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <div class="input-group ftdate" id="trIssueDate" data-target-input="nearest">
+                                                @Html.TextBoxFor(model => model.expiry_date, new { @class = "form-control form-control-sm datetimepicker-input", @target = "#trIssueDate", @tabindex = 4 })
+                                                <div class="input-group-append" data-target="#trIssueDate" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+
+                                            @Html.ValidationMessageFor(model => model.expiry_date, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-3" style="float:right">
+                                        @if (Model.Id > 0)
+                                        {
+                                            <button type="submit" class="btn btn-primary" style="float:right"><i class="fa fa-save"></i> Update Package</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" class="btn btn-primary" style="float:right"><i class="fa fa-save"></i> Save Package</button>
+                                        }
+                                        <a href='@Url.Action("Index", "Package")' style="float: right; position: relative; right: 20px;" class="btn btn-outline-info">
+                                            <i class="fa fa-remove-format"></i> Cancel
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+        </div>
+
+    </div>
+
+</div>
+
+
+

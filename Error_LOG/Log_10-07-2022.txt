@@ -1,0 +1,12 @@
+   Date   |  Time  | Log Type | Function | Message
+10-Jul-2022 | 02:39 15 | Error | EmployeeController.Post.Create | System.Data.SqlClient.SqlException (0x80131904): Must declare the scalar variable "@is_deletedwhere".
+   at GYM.Repository.RepoEmployee.<UpdateEmployee>d__8.MoveNext() in C:\Development Project(s)\Faiz Project\GYM\Repository\RepoEmployee.cs:line 104
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at GYM.Controllers.EmployeeController.<Create>d__2.MoveNext() in C:\Development Project(s)\Faiz Project\GYM\Controllers\EmployeeController.cs:line 88
+ClientConnectionId:f7b6562b-186e-4ce9-8556-1311931ae3f1
+Error Number:137,State:2,Class:15
+
+
